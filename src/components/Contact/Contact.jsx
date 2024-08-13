@@ -1,11 +1,48 @@
+import clsx from 'clsx';
+import css from './Contact.module.css'
+import { useDispatch } from 'react-redux';
+import { deleteContact } from '../../redux/contactsSlice';
 
+export default function Contact({ phone: { id, name, number } }) {
+  const titleItem = clsx(css.item, css.title);
+  const phoneItem = clsx(css.item, css.phone);
+  const dispatch = useDispatch();
 
+  const handleDelete = (phoneId) => {
+    dispatch(deleteContact(phoneId));
+  };
 
-
-function Contact() {
   return (
-    <div>Contact</div>
-  )
-}
+    <>
+      <div className={css.content}>
+        <h2 className={titleItem}>
+          {name}
+        </h2>
+        <a href={`tel:${number}`} className={phoneItem}>
+          {number}
+        </a>
+      </div>
+      <button
+        type="button"
+        className={css.button}
+        onClick={() => handleDelete(id)}
+      >
+        Delete
+      </button>
+    </>
+  );
+};
 
-export default Contact
+
+
+
+
+
+
+
+
+
+
+
+
+
